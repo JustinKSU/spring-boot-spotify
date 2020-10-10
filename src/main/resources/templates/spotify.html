@@ -19,7 +19,7 @@
                    oninput="this.previousElementSibling.value=this.value"/>
         </p>
         <p>Popularity: <input type="range" name="popularityRange" th:field="*{popularity}" min="0" max="100"
-                       oninput="this.nextElementSibling.value=this.value"/>
+                              oninput="this.nextElementSibling.value=this.value"/>
             <input type="number" name="popularityNum" th:value="*{popularity}" min="0" max="100"
                    oninput="this.previousElementSibling.value=this.value"/>
         </p>
@@ -31,12 +31,13 @@
             <tr>
                 <td th:text="${song.artistName}"/>
                 <td th:text="${song.songName}"/>
+                <td th:text="${song.id}"/>
             </tr>
         </th:block>
     </table>
 </div>
 <div th:unless="${json == null}">
-    <pre th:text="${json}" />
+    <pre th:text="${json}"/>
 </div>
 </body>
 </html>

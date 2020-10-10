@@ -8,6 +8,7 @@ import com.jutoma.springbootspotify.model.SearchCriteria;
 import com.jutoma.springbootspotify.model.Song;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,22 +18,22 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
-@Controller()
+@Controller
 public class SearchByBPM {
 
     private final Logger log = LoggerFactory.getLogger(SearchByBPM.class);
 
     private final WebClient webClient;
-    private static final int VARIABILITY = 5;
 
     public SearchByBPM(WebClient webClient) {
         this.webClient = webClient;
     }
 
     @PostMapping("/searchByBPM")
-    public String get(@ModelAttribute SearchCriteria searchCriteria, Model model) throws JsonProcessingException {
+    public String post(@ModelAttribute SearchCriteria searchCriteria, Model model) throws JsonProcessingException {
         log.info("BPM: " + searchCriteria.getBpm());
         log.info("Popularity: " + searchCriteria.getPopularity());
         String json = webClient
@@ -68,7 +69,7 @@ public class SearchByBPM {
             song.setId(track.get("id").textValue());
             song.setArtistName(track.get("artists").get(0).get("name").textValue());
             song.setSongName(track.get("name").textValue());
-            log.info("Artist {} Song {} with the ID {}", song.getArtistName(), song.getSongName(), song.getId());
+            log.info("Artist '{}' song name '{}' with the ID {}", song.getArtistName(), song.getSongName(), song.getId());
             songs.add(song);
         }
         return songs;
