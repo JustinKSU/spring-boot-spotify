@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+    <title>Spring Boot Spotify</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Operation Code - Kansas City Spotify</h1>
+<div sec:authorize="isAuthenticated()">
+    <span th:text="${#authentication.name}"></span>
+    <form action="#" th:action="@{/searchByBPM}" th:object="${searchCriteria}" method="post">
+        <p>Genre: <select th:field="*{genre}">
+            <option th:each="entry : ${genres.entrySet()}" th:value="${entry.key}" th:text="${entry.value}"
+                    th:selected="*{genre}"></option>
+        </select></p>
+        <p>BPM: <input type="range" name="bpmRange" th:field="*{bpm}" min="50" max="225"
+                       oninput="this.nextElementSibling.value=this.value"/>
+            <input type="number" name="bpmNum" th:value="*{bpm}" min="50" max="225"
+                   oninput="this.previousElementSibling.value=this.value"/>
+        </p>
+        <p>Popularity: <input type="range" name="popularityRange" th:field="*{popularity}" min="0" max="100"
+                       oninput="this.nextElementSibling.value=this.value"/>
+            <input type="number" name="popularityNum" th:value="*{popularity}" min="0" max="100"
+                   oninput="this.previousElementSibling.value=this.value"/>
+        </p>
+        <p><input type="submit" value="Submit"/>
+    </form>
+    <span th:if="${#lists.isEmpty(songs)}">No results</span>
+    <table>
+        <th:block th:each="song : ${songs}">
+            <tr>
+                <td th:text="${song.artistName}"/>
+                <td th:text="${song.songName}"/>
+            </tr>
+        </th:block>
+    </table>
+</div>
+<div th:unless="${json == null}">
+    <pre th:text="${json}" />
+</div>
+</body>
+</html>
