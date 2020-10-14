@@ -25,6 +25,7 @@
         </p>
         <p><input type="submit" value="Submit"/>
     </form>
+
     <span th:if="${#lists.isEmpty(songs)}">No results</span>
     <table>
         <th:block th:each="song : ${songs}">
@@ -35,9 +36,10 @@
             </tr>
         </th:block>
     </table>
-</div>
-<div th:unless="${json == null}">
-    <pre th:text="${json}"/>
+    
+    <div th:unless="${json == null}">
+        <pre th:text="${json}"/>
+    </div>
 </div>
 </body>
 </html>
