@@ -16,6 +16,6 @@ spring:
         provider:
           spotify-provider:
             token-uri: https://accounts.spotify.com/api/token
-            authorization-uri: https://accounts.spotify.com/authorize?show_dialog=true
+            authorization-uri: https://accounts.spotify.com/authorize?show_dialog=false
             user-info-uri: https://api.spotify.com/v1/me
             user-name-attribute: id

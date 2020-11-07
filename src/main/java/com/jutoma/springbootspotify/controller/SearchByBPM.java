@@ -8,8 +8,6 @@ import com.jutoma.springbootspotify.model.SearchCriteria;
 import com.jutoma.springbootspotify.model.Song;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +16,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -67,8 +64,17 @@ public class SearchByBPM {
             JsonNode track = tracks.get(i);
             Song song = new Song();
             song.setId(track.get("id").textValue());
-            song.setArtistName(track.get("artists").get(0).get("name").textValue());
             song.setSongName(track.get("name").textValue());
+
+            JsonNode artists = track.get("artists");
+            if(!artists.isEmpty()) {
+                song.setArtistName(artists.get(0).get("name").textValue());
+            }
+
+            JsonNode externalUrls = track.get("external_urls");
+            if(!externalUrls.isEmpty()) {
+                song.setPreviewUrl(externalUrls.get("spotify").textValue());
+            }
             log.info("Artist '{}' song name '{}' with the ID {}", song.getArtistName(), song.getSongName(), song.getId());
             songs.add(song);
         }

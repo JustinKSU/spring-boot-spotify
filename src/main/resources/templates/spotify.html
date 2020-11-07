@@ -31,12 +31,12 @@
         <th:block th:each="song : ${songs}">
             <tr>
                 <td th:text="${song.artistName}"/>
-                <td th:text="${song.songName}"/>
+                <td><a th:href="${song.previewUrl}"><span th:text="${song.songName}"/></a></td>
                 <td th:text="${song.id}"/>
             </tr>
         </th:block>
     </table>
-    
+
     <div th:unless="${json == null}">
         <pre th:text="${json}"/>
     </div>
