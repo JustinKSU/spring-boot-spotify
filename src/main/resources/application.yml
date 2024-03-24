@@ -7,7 +7,7 @@ spring:
         registration:
           spotify-client:
             client-id: ${client-id}
-            client-secret: ${client-secret}
+            client-secret-basic: ${client-secret}
             scope: playlist-read-private,playlist-modify-private
             provider: spotify-provider
             redirect-uri: http://localhost:8080/login/oauth2/code/spotify-client
@@ -19,3 +19,6 @@ spring:
             authorization-uri: https://accounts.spotify.com/authorize?show_dialog=false
             user-info-uri: https://api.spotify.com/v1/me
             user-name-attribute: id
+  threads:
+    virtual:
+      enabled: true
