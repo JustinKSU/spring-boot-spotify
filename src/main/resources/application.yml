@@ -7,7 +7,7 @@ spring:
         registration:
           spotify-client:
             client-id: ${client-id}
-            client-secret-basic: ${client-secret}
+            client-secret: ${client-secret}
             scope: playlist-read-private,playlist-modify-private
             provider: spotify-provider
             redirect-uri: http://localhost:8080/login/oauth2/code/spotify-client
