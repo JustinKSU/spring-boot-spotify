@@ -11,7 +11,7 @@ spring:
             scope: playlist-read-private,playlist-modify-private
             provider: spotify-provider
             redirect-uri: http://localhost:8080/login/oauth2/code/spotify-client
-            client-authentication-method: basic
+            client-authentication-method: client_secret_basic
             authorization-grant-type: authorization_code
         provider:
           spotify-provider:
